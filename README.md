@@ -12,6 +12,12 @@ xray.Configure(xray.Config{
 })
 ```
 
+and import the `xray-grpc` module:
+
+```
+import "github.com/vendrive/xray-grpc"
+```
+
 Both Client and Server Interceptors use the AWS X-Ray SDK, and support most features. Check `main.go` (code is minimal) if you are curious if your use case is supported.
 
 **Note**: Populating URL, gRPC error codes, and Content Length in segments are currently not supported.
