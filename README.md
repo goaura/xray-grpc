@@ -1,6 +1,10 @@
 # gRPC Interceptors for AWX X-Ray Tracing
 
-Provides gRPC Unary Client and Server Interceptors for AWX X-Ray that play nicely with the AWS X-Ray SDK (and existing AWS X-Ray HTTP wrappers)
+Provides Go gRPC Unary Client and Server Interceptors for AWX X-Ray that play nicely with the AWS X-Ray SDK (and existing AWS X-Ray HTTP wrappers).
+
+## Why
+
+The AWS X-Ray SDK's do not currently provide native support for gRPC client/server wrappers (see https://github.com/aws/aws-xray-sdk-go/issues/110). This repository provides a temporary solution while there is no native gRPC support.
 
 ## Usage
 
