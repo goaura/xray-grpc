@@ -1,10 +1,10 @@
-# gRPC Interceptors for AWX XRAY Tracing
+# gRPC Interceptors for AWX X-Ray Tracing
 
-Provides gRPC Unary Client and Server Interceptors for AWX XRAY that play nicely with the AWS XRAY SDK (and existing AWS XRAY HTTP wrappers)
+Provides gRPC Unary Client and Server Interceptors for AWX X-Ray that play nicely with the AWS XRAY SDK (and existing AWS X-Ray HTTP wrappers)
 
 ## Usage
 
-For both Client and Server Interceptors, setup the AWS XRAY SDK normally:
+For both Client and Server Interceptors, setup the AWS X-Ray SDK normally:
 
 ```
 xray.Configure(xray.Config{
@@ -12,7 +12,7 @@ xray.Configure(xray.Config{
 })
 ```
 
-Both Client and Server Interceptors use the AWS XRAY SDK, and support most features. Check `main.go` (code is minimal) if you are curious if your use case is supported.
+Both Client and Server Interceptors use the AWS X-Ray SDK, and support most features. Check `main.go` (code is minimal) if you are curious if your use case is supported.
 
 **Note**: Populating URL, gRPC error codes, and Content Length in segments are currently not supported.
 

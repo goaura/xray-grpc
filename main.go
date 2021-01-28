@@ -16,7 +16,7 @@ const (
 	CustomUserAgent = "Vendrive-gRPC-XRAY-Interceptor"
 )
 
-// Returns a UnaryClientInterceptor that supports populating gRPC metadata with AWS XRAY information.
+// Returns a UnaryClientInterceptor that supports populating gRPC metadata with AWS X-Ray information.
 // Parameter hostFromTarget allows you to translate the grpc.ClientConn target into your preferred outbound
 // server name. DNS Information, URL, gRPC error codes, and Content Length are currently not supported.
 // Usage:
@@ -36,7 +36,7 @@ func NewGrpcXrayUnaryClientInterceptor(hostFromTarget func(string) string) grpc.
 		// Retrieve the host (subsegment name) from the connection target
 		host := hostFromTarget(cc.Target())
 
-		// Copied from XRAY SDK
+		// Copied from X-Ray SDK
 		err := xray.Capture(ctx, host, func(ctx context.Context) error {
 			seg := xray.GetSegment(ctx)
 
@@ -76,7 +76,7 @@ func NewGrpcXrayUnaryClientInterceptor(hostFromTarget func(string) string) grpc.
 	}
 }
 
-// Returns a UnaryServerInterceptor that supports reading gRPC metadata that contains AWS XRAY information.
+// Returns a UnaryServerInterceptor that supports reading gRPC metadata that contains AWS X-Ray information.
 // Intended to recieve requests from a gRPC client that uses NewGrpcXrayUnaryClientInterceptor. Currently only
 // supports NewFixedSegmentNamer for parameter sn. Populating URL, gRPC error codes, and Content Length in segments
 // are currently not supported.
@@ -105,7 +105,7 @@ func NewGrpcXrayUnaryServerInterceptor(sn xray.SegmentNamer) grpc.UnaryServerInt
 		}
 		traceHeader := header.FromString(traceString)
 
-		// Copy Segment creation from XRAY SDK: https://github.com/aws/aws-xray-sdk-go/blob/master/xray/segment.go
+		// Copy Segment creation from X-Ray SDK: https://github.com/aws/aws-xray-sdk-go/blob/master/xray/segment.go
 		ctx, seg := xray.NewSegmentFromHeader(ctx, name, nil, traceHeader)
 		defer seg.Close(nil)
 
