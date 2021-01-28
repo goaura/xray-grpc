@@ -42,3 +42,7 @@ conn, err := grpc.Dial("my-service.my-namespace.local:3000",
 // NewFixedSegmentNamer is the only segment namer currently supported
 s := grpc.NewServer(grpc.UnaryInterceptor(xray_grpc.NewGrpcXrayUnaryServerInterceptor(xray.NewFixedSegmentNamer("my-service"))))
 ```
+
+## Resources
+- https://github.com/aws/aws-xray-sdk-go/
+- https://github.com/grpc/grpc-go/blob/master/Documentation/grpc-metadata.md
