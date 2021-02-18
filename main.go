@@ -1,3 +1,6 @@
+/*
+Library for tracing gRPC client/server interactions via AWS X-Ray
+*/
 package xray_grpc
 
 import (
