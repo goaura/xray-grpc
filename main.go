@@ -6,6 +6,8 @@ package xray_grpc
 import (
 	"context"
 	"errors"
+	"fmt"
+	"strings"
 
 	"github.com/aws/aws-xray-sdk-go/header"
 	"github.com/aws/aws-xray-sdk-go/xray"
@@ -140,4 +142,11 @@ func NewGrpcXrayUnaryServerInterceptor(sn xray.SegmentNamer) grpc.UnaryServerInt
 
 		return resp, err
 	})
+}
+
+func GetDefaultHostFromTargetFunc(namespace string) func(string) string {
+	return func(target string) string {
+		withoutPort := target[:strings.IndexByte(target, ':')]
+		return strings.ReplaceAll(withoutPort, fmt.Sprintf(".%s", namespace), "")
+	}
 }
