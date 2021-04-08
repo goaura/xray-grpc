@@ -116,15 +116,20 @@ func NewGrpcXrayUnaryServerInterceptor(sn xray.SegmentNamer) grpc.UnaryServerInt
 
 		seg.Lock()
 
-		// gRPC RPC's are always POST
-		seg.GetHTTP().GetRequest().Method = GrpcMethod
-
+		ClientIP := ""
 		p, ok := peer.FromContext(ctx)
 		if ok {
-			seg.GetHTTP().GetRequest().ClientIP = p.Addr.String()
+			ClientIP = p.Addr.String()
 		}
-		seg.GetHTTP().GetRequest().UserAgent = CustomUserAgent
-		// TODO: Populate URL
+
+		reqData := &xray.RequestData{
+			Method:    GrpcMethod,
+			URL:       info.FullMethod,
+			ClientIP:  ClientIP,
+			UserAgent: CustomUserAgent,
+		}
+
+		seg.GetHTTP().Request = reqData
 
 		// Handle Request
 		seg.Unlock()
